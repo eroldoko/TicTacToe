@@ -17,24 +17,28 @@ createGrid();
 
 let boxes = document.getElementsByClassName('box');
 
-for (var i = 0; i < boxes.length; i++) {
-  boxes[i].addEventListener('click', startGame);
+//Starting the game
+function start() {
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].addEventListener('click', game);
+  }
 }
-
+start()
 let xo = "O";
 let gamesPlayed = 0;
 
-
-function startGame() {
-  (xo == "O") ? xo = "X": xo = "O";
+//Game logic
+function game() {
+  (xo == "O") ? xo = "X" : xo = "O";
   this.innerHTML = xo;
-  this.removeEventListener('click', startGame);
+  this.removeEventListener('click', game);
   this.style.background = 'rgba(145,0,11,0.8)'
   checkLines();
 }
 
 let counter = 0;
 
+//checking game progress
 function checkLines() {
   counter++;
   if (boxes[0].innerHTML == boxes[1].innerHTML && boxes[0].innerHTML == boxes[2].innerHTML && boxes[0].innerHTML != "") {
@@ -60,7 +64,7 @@ function checkLines() {
     setTimeout(endGame, 1500)
   }
 }
-
+//displaying winner text in grid winner fields
 function winnerShow() {
   for (var i = 0; i < arguments.length; i++) {
     arguments[0].classList.add("winner");
@@ -91,9 +95,10 @@ function createGrid() {
   }
 }
 
+//end game logic and reseting values to default
 function endGame() {
   for (var i = 0; i < boxes.length; i++) {
-    boxes[i].removeEventListener('click', startGame);
+    boxes[i].removeEventListener('click', game);
     boxes[i].classList.remove('winner')
   }
 
@@ -102,43 +107,41 @@ function endGame() {
   } else {
     xo = "X"
   }
-
   counter = 0;
   // console.log(counter);
   for (var i = 0; i < boxes.length; i++) {
     boxes[i].style.background = "cadetblue";
     boxes[i].innerHTML = "";
   }
-  for (var i = 0; i < boxes.length; i++) {
-    boxes[i].addEventListener('click', startGame);
-  }
-
-  //reseting results
-  reset.addEventListener('click', function() {
-
-    p1.innerHTML = "0"
-    p2.innerHTML = "0"
-    tie.innerHTML = "0"
-
-    p1Res = 0;
-    p2Res = 0;
-    tieRes = 0;
-    xo = "O"
-    gamesPlayed = 0;
-  })
-
-  //text to display on quit
-  quit.addEventListener('click', function() {
-
-    for (var i = 0; i < boxes.length; i++) {
-      boxes[i].style.background = "rgba(145,0,11,0.8)";
-      boxes[i].innerHTML = "";
-      boxes[3].innerHTML = 'B'
-      boxes[3].style.boxShadow = "-1px -1px 20px 10px";
-      boxes[4].innerHTML = 'Y'
-      boxes[4].style.boxShadow = "-1px -1px 20px 10px";
-      boxes[5].innerHTML = 'E'
-      boxes[5].style.boxShadow = "-1px -1px 20px 10px";
-    }
-  })
+  start()
 }
+
+//reseting results
+reset.addEventListener('click', function () {
+
+  p1.innerHTML = "0"
+  p2.innerHTML = "0"
+  tie.innerHTML = "0"
+
+  p1Res = 0;
+  p2Res = 0;
+  tieRes = 0;
+  xo = "O"
+  gamesPlayed = 0;
+})
+
+//text to display on quit
+quit.addEventListener('click', function () {
+
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].style.background = "rgba(145,0,11,0.8)";
+    boxes[i].innerHTML = "";
+    boxes[3].innerHTML = 'B'
+    boxes[3].style.boxShadow = "-1px -1px 20px 10px";
+    boxes[4].innerHTML = 'Y'
+    boxes[4].style.boxShadow = "-1px -1px 20px 10px";
+    boxes[5].innerHTML = 'E'
+    boxes[5].style.boxShadow = "-1px -1px 20px 10px";
+  }
+})
+
