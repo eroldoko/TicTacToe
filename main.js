@@ -64,13 +64,15 @@ function checkLines() {
     setTimeout(endGame, 1500)
   }
 }
-//displaying winner text in grid winner fields
+//displaying winner fields
 function winnerShow() {
   for (var i = 0; i < arguments.length; i++) {
     arguments[0].classList.add("winner");
     arguments[1].classList.add("winner");
     arguments[2].classList.add("winner");
-
+    for (var i = 0; i < boxes.length; i++) {
+      boxes[i].removeEventListener('click', game);
+    }
     counter = 0;
     gamesPlayed++;
     setTimeout(endGame, 1500)
@@ -118,7 +120,6 @@ function endGame() {
 
 //reseting results
 reset.addEventListener('click', function () {
-
   p1.innerHTML = "0"
   p2.innerHTML = "0"
   tie.innerHTML = "0"
@@ -132,7 +133,6 @@ reset.addEventListener('click', function () {
 
 //text to display on quit
 quit.addEventListener('click', function () {
-
   for (var i = 0; i < boxes.length; i++) {
     boxes[i].style.background = "rgba(145,0,11,0.8)";
     boxes[i].innerHTML = "";
